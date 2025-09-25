@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login — National Mission on Natural Farming</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* optional alert styling */
+    .alert {
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 6px;
+      color: #fff;
+      display: none;
+    }
+    .alert.error { background: #d32f2f; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="logo.png" alt="Logo" width="48" height="48"/>
+        <div>
+          <h1>Natural Farming Mission</h1>
+          <p class="tag">स्वस्थ माटी — संपन्न किसान</p>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="registration.html">Register</a>
+        <a href="login.html" class="cta">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h2>Farmer Login</h2>
+        <p>Please log in to access your dashboard.</p>
+
+        <div id="alert" class="alert"></div>
+
+        <form class="form" id="loginForm">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+
+          <button type="submit" class="btn">Login</button>
+        </form>
+
+        <p class="small">
+          New here? <a href="registration.html">Register now</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2025 National Mission on Natural Farming. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const alertBox = document.getElementById('alert');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const data = {
+        email: form.email.value.trim(),
+        password: form.password.value
+      };
+
+      try {
+        const response = await fetch('/login', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(data)
+        });
+
+        const html = await response.text();
+        document.open();
+        document.write(html);
+        document.close();
+      } catch (err) {
+        alertBox.textContent = 'Login failed: ' + err.message;
+        alertBox.className = 'alert error';
+        alertBox.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

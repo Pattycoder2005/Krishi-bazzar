@@ -1,0 +1,47 @@
+[
+  {
+    "name": "ritik pawar",
+    "email": "ritik@gmail.com",
+    "phone": "9149347209",
+    "state": "Uttar Pradesh",
+    "farm": "100",
+    "message": "no",
+    "password": "123456789"
+  },
+  {
+    "name": "vvhjyuj",
+    "email": "vulvu@gmail.com",
+    "phone": "9878987712",
+    "state": "Uttar Pradesh",
+    "farm": "10",
+    "message": "",
+    "password": "987654321"
+  },
+  {
+    "name": "ayush kumar",
+    "email": "vasuk4427@gmail.com",
+    "phone": "9149347209",
+    "state": "Uttar Pradesh",
+    "farm": "10",
+    "message": "",
+    "password": "12345"
+  },
+  {
+    "name": "ayush kumar",
+    "email": "ayushbhiyar2020@gmail.com",
+    "phone": "+919149347209",
+    "state": "Uttar Pradesh",
+    "farm": "10",
+    "message": "",
+    "password": "ayush"
+  },
+  {
+    "name": "siddharth",
+    "email": "gadgethub2020@gmail.com",
+    "phone": "+919045888919",
+    "state": "Uttar Pradesh",
+    "farm": "10",
+    "message": "",
+    "password": "ritik"
+  }
+]

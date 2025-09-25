@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>National Mission on Natural Farming — Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand"> <img src="logo.png" alt="Logo" width="56" height="56" />
+        <div>
+          <h1>National Mission on Natural Farming</h1>
+          <p class="tag">स्वस्थ माटी — संपन्न किसान</p>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <span id="welcomeUser" style="margin-left:15px; font-weight:bold; color:#0b4726;"></span>
+        <a href="login.html" id="loginLink" class="btn outline" style="margin-left:10px;">Login</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <section class="container section">
+        <p style="text-align:center; margin-bottom:1rem;">
+          <button id="purchaseBtn" class="btn">Purchase Fertilizers</button>
+        </p>
+
+        <!-- Fertilizer cards (hidden by default) -->
+        <div id="fertilizerList" style="display:none; margin-top:1rem;" class="grid">
+
+          <div class="card">
+            <img src="urea-pure-500x500.webp" alt="Urea Fertilizer"
+              style="width:100%; border-radius:6px; margin-bottom:10px;">
+            <h4>Urea (यूरिया)</h4>
+            <p>High nitrogen fertilizer for rapid crop growth.</p>
+            <a href="https://www.amazon.in/s?k=urea+fertilizer" target="_blank" class="btn outline">Buy Now</a>
+          </div>
+
+          <div class="card">
+            <img src="dap.jpg" alt="DAP Fertilizer" style="width:100%; border-radius:6px; margin-bottom:10px;">
+            <h4>DAP - Diammonium Phosphate (डीएपी - डाई अमोनियम फॉस्फेट)</h4>
+            <p>Provides phosphorus & nitrogen for strong roots.</p>
+            <a href="https://www.amazon.in/s?k=dap+fertilizer" target="_blank" class="btn outline">Buy Now</a>
+          </div>
+
+          <div class="card">
+            <img src="mop.webp" alt="MOP Fertilizer" style="width:100%; border-radius:6px; margin-bottom:10px;">
+            <h4>MOP - Muriate of Potash (एमओपी - म्यूरेट ऑफ पोटाश)</h4>
+            <p>Potassium-rich fertilizer for better yield & disease resistance.</p>
+            <a href="https://www.amazon.in/s?k=potash+fertilizer" target="_blank" class="btn outline">Buy Now</a>
+          </div>
+
+          <div class="card">
+            <img src="download.jpg" alt="Organic Compost" style="width:100%; border-radius:6px; margin-bottom:10px;">
+            <h4>Organic Compost (जैविक खाद)</h4>
+            <p>Eco-friendly compost to improve soil fertility.</p>
+            <a href="https://www.amazon.in/s?k=organic+compost" target="_blank" class="btn outline">Buy Now</a>
+          </div>
+
+          <div class="card">
+            <img src="vermicompost.jpg" alt="Vermicompost" style="width:100%; border-radius:6px; margin-bottom:10px;">
+            <h4>Vermicompost (केंचुआ खाद)</h4>
+            <p>Organic fertilizer made from earthworms, rich in nutrients.</p>
+            <a href="https://www.amazon.in/s?k=vermicompost" target="_blank" class="btn outline">Buy Now</a>
+          </div>
+
+          <div class="card">
+            <img src="neem.jpg" alt="Neem Cake Fertilizer" style="width:100%; border-radius:6px; margin-bottom:10px;">
+            <h4>Neem Cake Fertilizer (नीम की खली)</h4>
+            <p>Natural fertilizer & pest repellent.</p>
+            <a href="https://www.amazon.in/s?k=neem+cake+fertilizer" target="_blank" class="btn outline">Buy Now</a>
+          </div>
+
+          <div class="card">
+            <img src="bio fertiliser.jpg" alt="Bio Fertilizer"
+              style="width:100%; border-radius:6px; margin-bottom:10px;">
+            <h4>Bio-Fertilizer (जैव उर्वरक)</h4>
+            <p>Contains living microorganisms for sustainable farming.</p>
+            <a href="https://www.amazon.in/s?k=bio+fertilizer" target="_blank" class="btn outline">Buy Now</a>
+          </div>
+
+          <div class="card">
+            <img src="zinc.jpg" alt="Zinc Sulphate" style="width:100%; border-radius:6px; margin-bottom:10px;">
+            <h4>Zinc Sulphate (जिंक सल्फेट)</h4>
+            <p>Helps in correcting zinc deficiency in crops.</p>
+            <a href="https://www.amazon.in/s?k=zinc+sulphate+fertilizer" target="_blank" class="btn outline">Buy Now</a>
+          </div>
+
+          <div class="card">
+            <img src="calcium.jpg" alt="Calcium Nitrate" style="width:100%; border-radius:6px; margin-bottom:10px;">
+            <h4>Calcium Nitrate (कैल्शियम नाइट्रेट)</h4>
+            <p>Improves fruit quality and prevents nutrient deficiencies.</p>
+            <a href="https://www.amazon.in/s?k=calcium+nitrate+fertilizer" target="_blank" class="btn outline">Buy
+              Now</a>
+          </div>
+
+          <div class="card">
+            <img src="npk.jpg" alt="NPK Fertilizer" style="width:100%; border-radius:6px; margin-bottom:10px;">
+            <h4>NPK 19:19:19 (एनपीके १९:१९:१९)</h4>
+            <p>Balanced fertilizer with Nitrogen, Phosphorus & Potassium.</p>
+            <a href="https://www.amazon.in/s?k=npk+19+19+19" target="_blank" class="btn outline">Buy Now</a>
+          </div>
+
+        </div>
+
+
+        </div>
+
+        </div>
+      </section>
+
+      <div class="container">
+        <h2>Natural Farming — low-input, ecologically sound agriculture</h2>
+        <p>Promoting soil health, climate resilience and farmer livelihoods through on-farm inputs, training and model
+          farms.</p>
+        <p><a class="btn" href="registration.html">Enroll as a Farmer</a></p>
+      </div>
+    </section>
+    <!-- ABOUT SECTION -->
+    <section class="section alt" id="about">
+      <div class="container">
+        <h2>About Natural Farming</h2>
+        <p>
+          Natural Farming is a sustainable way of agriculture that minimizes the use of chemical inputs
+          and promotes healthy soil, biodiversity, and farmer well-being. It aims to protect the
+          environment while ensuring nutritious food for all.
+        </p>
+        <p class="small">
+          Our mission is to empower farmers with eco-friendly techniques and connect communities
+          to nature’s wisdom for a greener future.
+        </p>
+      </div>
+    </section>
+
+    <!-- BENEFITS SECTION -->
+    <section class="section" id="benefits">
+      <div class="container">
+        <h2>Benefits of Natural Farming</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Eco-Friendly</h3>
+            <p>
+              Reduces pollution, conserves water, and promotes soil health through natural inputs.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Low Cost</h3>
+            <p>
+              Cuts down farming expenses by reducing dependency on chemical fertilizers and pesticides.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Healthier Food</h3>
+            <p>
+              Provides chemical-free, nutrient-rich produce that supports better health and immunity.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Farmer Empowerment</h3>
+            <p>
+              Increases farmer independence and income by using locally available resources.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="guidelines" class="container section">
+      <h3>Guidelines & Operational Materials</h3>
+      <p>Download operational guidelines, state package-of-practices, and training modules from the Resources section.
+        Implementation emphasizes farmer progression indicators and geo-tagged monitoring in clusters and model farms.
+      </p>
+      <div class="resource-list"> <a class="resource" href="#">Operational Guidelines (English) ⇢</a> <a
+          class="resource" href="#">Package of Practices by State ⇢</a> <a class="resource" href="#">Training Module
+          ⇢</a> </div>
+    </section>
+    <section id="resources" class="container section alt">
+      <h3>Centres, Master Trainers & Dashboards</h3>
+      <p>The mission runs training centres and accredits master trainers; a dashboard offers real-time monitoring and
+        farmer enrolment tracking.</p>
+      <div class="grid">
+        <div class="card">
+          <h4>BRC / Block Resource Centres</h4>
+          <p>Local implementation a nd farmer outreach.</p>
+        </div>
+        <div class="card">
+          <h4>Master Trainers</h4>
+          <p>Expert trainers to support on-ground capacity building.</p>
+        </div>
+        <div class="card">
+          <h4>Dashboard</h4>
+          <p>Geo-tagged progress metrics (farmer enrolment, model farms, trainings).</p>
+        </div>
+      </div>
+    </section>
+    <section class="container section contact">
+      <h3>Contact & Feedback</h3>
+      <p>For queries about implementation or to provide feedback, use the contact form or call the mission unit.</p>
+      <form id="contactForm">
+        <div class="row"> <input type="text" id="name" required placeholder="Your name" /> <input type="email"
+            id="email" required placeholder="Email" /> </div> <textarea id="msg" required
+          placeholder="Your message"></textarea> <button class="btn" type="submit">Send</button>
+      </form>
+    </section>
+  </main>
+  <section class="reviews-section">
+    <div class="container">
+      <h2>What Farmers Say</h2>
+      <div class="reviews">
+        <div class="review-card">
+          <p class="review-text">"This portal helped me find the best organic fertilizers easily. Very useful for small
+            farmers like me!"</p>
+          <p class="review-author">— Ramesh Kumar (रामेश कुमार), Uttar Pradesh</p>
+        </div>
+
+        <div class="review-card">
+          <p class="review-text">"बहुत ही अच्छा पोर्टल है। मुझे खेती के लिए प्राकृतिक खाद और जानकारी यहाँ से मिली।"</p>
+          <p class="review-author">— Sita Devi (सीता देवी), Bihar</p>
+        </div>
+
+        <div class="review-card">
+          <p class="review-text">"Great initiative! The registration and fertilizer purchase option is very smooth."</p>
+          <p class="review-author">— Ajay Singh (अजय सिंह), Madhya Pradesh</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="review-form-section">
+    <div class="container">
+      <h2>Share Your Experience</h2>
+      <form id="reviewForm">
+        <input type="text" id="reviewName" placeholder="Your Name (आपका नाम)" required>
+        <textarea id="reviewMessage" placeholder="Write your review here (अपना अनुभव लिखें)" required></textarea>
+        <button type="submit" class="btn">Submit Review</button>
+      </form>
+
+      <div id="userReviews" style="margin-top:2rem;">
+        <h3>Recent User Reviews</h3>
+        <div id="reviewsList"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Thanks for wisiting our website</p>
+      <p class="small">Links: <a href="#">Privacy</a> · <a href="#">Accessibility</a></p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+  <script>
+    // Load user details from localStorage
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+
+    if (user) {
+      // Show username, hide login button
+      document.getElementById("welcomeUser").textContent = `Hi, ${user.name}`;
+      document.getElementById("loginLink").style.display = "none";
+    } else {
+      // Hide username if not logged in
+      document.getElementById("welcomeUser").style.display = "none";
+    }
+  </script>
+  <script>
+    // Toggle fertilizer list
+    document.getElementById("purchaseBtn")?.addEventListener("click", () => {
+      const list = document.getElementById("fertilizerList");
+      list.style.display = list.style.display === "none" ? "grid" : "none";
+    });
+  </script>
+  <script>
+    // Handle review form submission
+    document.getElementById("reviewForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("reviewName").value.trim();
+      const message = document.getElementById("reviewMessage").value.trim();
+
+      if (name && message) {
+        // Save to localStorage
+        const newReview = { name, message };
+        let reviews = JSON.parse(localStorage.getItem("userReviews")) || [];
+        reviews.push(newReview);
+        localStorage.setItem("userReviews", JSON.stringify(reviews));
+
+        // Add review to page
+        displayReviews();
+
+        // Reset form
+        document.getElementById("reviewForm").reset();
+      }
+    });
+
+    <script>
+      async function fetchReviews() {
+    const res = await fetch("/api/reviews");
+      const data = await res.json();
+      const reviewsList = document.getElementById("reviewsList");
+      reviewsList.innerHTML = "";
+
+    data.forEach(r => {
+      const div = document.createElement("div");
+      div.classList.add("review-card");
+      div.innerHTML = `<p>"${r.message}"</p><p><strong>— ${r.name}</strong></p>`;
+      reviewsList.appendChild(div);
+    });
+  }
+
+  document.getElementById("reviewForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById("reviewName").value.trim();
+    const message = document.getElementById("reviewMessage").value.trim();
+
+    if (name && message) {
+      await fetch("/api/reviews", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, message })
+      });
+
+      document.getElementById("reviewForm").reset();
+      fetchReviews(); // refresh list
+    }
+  });
+
+  // Load reviews on page load
+  window.onload = fetchReviews;
+  </script>
+
+
+
+  // Load reviews on page load
+  window.onload = displayReviews;
+  </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Farmer Dashboard — Natural Farming Mission</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner container">
+      <div class="brand">
+        <img src="logo.png" alt="Logo" width="40" height="40">
+        <h1>Natural Farming</h1>
+      </div>
+      <nav class="main-nav">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <span id="welcomeUser" style="margin-left:15px; font-weight:bold; color:#0b4726;"></span>
+  <a href="login.html" id="loginLink" class="btn outline" style="margin-left:10px;">Login</a>
+</nav>
+
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h2>Welcome, <span id="userName"></span>!</h2>
+        <p>Here are your registration details:</p>
+
+        <div class="card">
+          <p><strong>Email:</strong> <span id="userEmail"></span></p>
+          <p><strong>Phone:</strong> <span id="userPhone"></span></p>
+          <p><strong>State:</strong> <span id="userState"></span></p>
+          <p><strong>Farm Size:</strong> <span id="userFarm"></span> acres</p>
+          <p><strong>Notes:</strong> <span id="userMessage"></span></p>
+
+          <!-- Purchase button -->
+          <p>
+            <button id="purchaseBtn" class="btn">Purchase Fertilizers</button>
+          </p>
+
+          <!-- Fertilizer list (cards) -->
+          <div id="fertilizerList" style="display:none; margin-top:1rem;" class="grid">
+            <div class="card">
+              <h4>Organic Fertilizer A</h4>
+              <p>Boosts soil fertility naturally.</p>
+              <a href="https://fertilizerlink1.com" target="_blank" class="btn outline">Buy Now</a>
+            </div>
+            <div class="card">
+              <h4>Bio Fertilizer B</h4>
+              <p>Improves crop yield with microbes.</p>
+              <a href="https://fertilizerlink2.com" target="_blank" class="btn outline">Buy Now</a>
+            </div>
+            <div class="card">
+              <h4>Compost C</h4>
+              <p>Eco-friendly, nutrient-rich compost.</p>
+              <a href="https://fertilizerlink3.com" target="_blank" class="btn outline">Buy Now</a>
+            </div>
+            <div class="card">
+              <h4>Vermicompost D</h4>
+              <p>Enriched organic fertilizer with worms.</p>
+              <a href="https://fertilizerlink4.com" target="_blank" class="btn outline">Buy Now</a>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          <a href="index.html" class="btn outline">Back to Home</a>
+          <button id="logoutBtn" class="btn" style="margin-left:10px;">Logout</button>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2025 National Mission on Natural Farming. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Logout button
+    document.getElementById("logoutBtn")?.addEventListener("click", () => {
+      localStorage.removeItem("loggedInUser");
+      alert("You have been logged out.");
+      window.location.href = "login.html";
+    });
+
+    // Load user details from localStorage
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (user) {
+      document.getElementById("userName").textContent = user.name;
+      document.getElementById("userEmail").textContent = user.email;
+      document.getElementById("userPhone").textContent = user.phone;
+      document.getElementById("userState").textContent = user.state;
+      document.getElementById("userFarm").textContent = user.farm;
+      document.getElementById("userMessage").textContent = user.message;
+      document.getElementById("welcomeUser").textContent = `Hi, ${user.name}`;
+    }
+
+    // Toggle fertilizer list
+    document.getElementById("purchaseBtn")?.addEventListener("click", () => {
+      const list = document.getElementById("fertilizerList");
+      list.style.display = list.style.display === "none" ? "grid" : "none";
+    });
+  </script>
+</body>
+</html>

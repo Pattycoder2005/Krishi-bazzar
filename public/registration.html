@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Farmer Registration — National Mission on Natural Farming</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Optional: minor styling for alerts */
+    .alert {
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 6px;
+      color: #fff;
+      display: none;
+    }
+    .alert.success { background: #0b7b3b; }
+    .alert.error { background: #d32f2f; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="logo.png" alt="Logo" width="48" height="48"/>
+        <div>
+          <h1>Natural Farming Mission</h1>
+          <p class="tag">स्वस्थ माटी — संपन्न किसान</p>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="#about">About</a>
+        <a href="#benefits">Benefits</a>
+        <a href="#guidelines">Guidelines</a>
+        <a href="registration.html" class="cta">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h2>Farmer Registration</h2>
+        <p>Please fill in the form below to enroll in the Natural Farming Mission.</p>
+
+        <div id="alert" class="alert"></div>
+
+        <form class="form" id="registrationForm">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required>
+
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required>
+
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="+91XXXXXXXXXX" required>
+
+          <label for="state">State</label>
+          <select id="state" name="state" required>
+            <option value="">-- Select your state --</option>
+            <option>Uttar Pradesh</option>
+            <option>Bihar</option>
+            <option>Maharashtra</option>
+            <option>Karnataka</option>
+            <option>Tamil Nadu</option>
+            <option>Other</option>
+          </select>
+
+          <label for="farm">Farm Size (in acres)</label>
+          <input type="number" id="farm" name="farm" min="0.1" step="0.1" required>
+
+          <label for="message">Additional Notes</label>
+          <textarea id="message" name="message" rows="4"></textarea>
+
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+
+          <button type="submit" class="btn">Submit Registration</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2025 National Mission on Natural Farming. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById('registrationForm');
+    const alertBox = document.getElementById('alert');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Prepare form data
+      const data = {
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        phone: form.phone.value.trim(),
+        state: form.state.value,
+        farm: form.farm.value,
+        message: form.message.value,
+        password: form.password.value
+      };
+
+      // Basic phone validation for Twilio
+      if (!/^\+\d{10,15}$/.test(data.phone)) {
+        alertBox.textContent = 'Please enter a valid phone number with country code (e.g., +91XXXXXXXXXX).';
+        alertBox.className = 'alert error';
+        alertBox.style.display = 'block';
+        return;
+      }
+
+      try {
+        const response = await fetch('/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const html = await response.text();
+        document.open();
+        document.write(html);
+        document.close();
+      } catch (err) {
+        alertBox.textContent = 'Registration failed: ' + err.message;
+        alertBox.className = 'alert error';
+        alertBox.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
