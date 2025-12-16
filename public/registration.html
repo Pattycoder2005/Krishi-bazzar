@@ -1,10 +1,12 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Farmer Registration — National Mission on Natural Farming</title>
+  <title>Farmer Registration — Krishi Bazaar</title>
   <link rel="stylesheet" href="style.css">
+  
   <style>
     /* Optional: minor styling for alerts */
     .alert {
@@ -14,18 +16,25 @@
       color: #fff;
       display: none;
     }
-    .alert.success { background: #0b7b3b; }
-    .alert.error { background: #d32f2f; }
+
+    .alert.success {
+      background: #0b7b3b;
+    }
+
+    .alert.error {
+      background: #d32f2f;
+    }
   </style>
 </head>
+
 <body>
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand">
-        <img src="logo.png" alt="Logo" width="48" height="48"/>
+        <img src="logo.png" alt="Logo" width="48" height="48" />
         <div>
-          <h1>Natural Farming Mission</h1>
-          <p class="tag">स्वस्थ माटी — संपन्न किसान</p>
+          <h1>Krishi Bazaar</h1>
+          <p class="tag">किसान बाजार</p>
         </div>
       </div>
       <nav class="main-nav">
@@ -42,13 +51,20 @@
     <section class="section">
       <div class="container">
         <h2>Farmer Registration</h2>
-        <p>Please fill in the form below to enroll in the Natural Farming Mission.</p>
+        <p>Please fill in the form below to enroll in the Krishi Bazaar.</p>
 
         <div id="alert" class="alert"></div>
 
         <form class="form" id="registrationForm">
           <label for="name">Full Name</label>
           <input type="text" id="name" name="name" required>
+
+          <label for="role">Register as:</label>
+          <select id="role" name="role" required>
+            <option value="buyer">Buyer</option>
+            <option value="seller">Seller</option>
+          </select>
+
 
           <label for="email">Email Address</label>
           <input type="email" id="email" name="email" required>
@@ -64,10 +80,14 @@
             <option>Maharashtra</option>
             <option>Karnataka</option>
             <option>Tamil Nadu</option>
+            <option>uttarakhand</option>
+            <option>Assam</option>
+            <option>Punjab</option>
+            <option>Haryana</option>
             <option>Other</option>
           </select>
 
-          <label for="farm">Farm Size (in acres)</label>
+          <label for="farm">Quantity</label>
           <input type="number" id="farm" name="farm" min="0.1" step="0.1" required>
 
           <label for="message">Additional Notes</label>
@@ -84,7 +104,7 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>© 2025 National Mission on Natural Farming. All rights reserved.</p>
+      <p>© 2025 Krishi Bazaar. All rights reserved.</p>
     </div>
   </footer>
 
@@ -99,11 +119,12 @@
       const data = {
         name: form.name.value.trim(),
         email: form.email.value.trim(),
-        phone: form.phone.value.trim(),
+        phone: form.phone.value,
         state: form.state.value,
         farm: form.farm.value,
         message: form.message.value,
-        password: form.password.value
+        password: form.password.value,
+        role: form.role.value  // ✅ NEW
       };
 
       // Basic phone validation for Twilio
@@ -133,4 +154,5 @@
     });
   </script>
 </body>
+
 </html>

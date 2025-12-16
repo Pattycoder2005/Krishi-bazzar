@@ -1,0 +1,20 @@
+{
+  "name": "Agro Trade",
+  "short_name": "AgroTrade",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0b7b3b",
+  "theme_color": "#0b7b3b",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

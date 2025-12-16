@@ -1,79 +1,80 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Purchase Fertilizers — Natural Farming Portal</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Buy Products</title>
   <link rel="stylesheet" href="style.css">
+  
+  <style>
+    .container { max-width:1100px; margin:1.5rem auto; padding:1rem; }
+    .grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap:1rem; }
+    .card { background:white; padding:1rem; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.05); }
+    .price { font-weight:700; color:#0b7b3b; }
+    .buy-btn { background:#0b7b3b; color:white; padding:.5rem .8rem; border:0; border-radius:6px; cursor:pointer; }
+  </style>
 </head>
-
 <body>
-  <header class="site-header">
-    <div class="header-inner container">
-      <div class="brand">
-        <img src="logo.png" alt="Natural Farming Portal Logo" width="40" height="40">
-        <h1>Natural Farming Portal</h1>
-      </div>
-      <nav class="main-nav">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="purchase.html" class="cta">Purchase</a>
-      </nav>
-    </div>
-  </header>
+  <div class="container">
+    <h1>Available Products</h1>
+    <div id="grid" class="grid">Loading…</div>
+    <p><a href="buyer-dashboard.html">Back to Dashboard</a></p>
+  </div>
 
-  <main>
-    <section class="hero">
-      <div class="container">
-        <h2>Purchase Fertilizers</h2>
-        <p>Choose from our range of natural and organic fertilizers.</p>
-      </div>
-    </section>
+  <script>
+  async function load() {
+    const res = await fetch('/api/products');
+    const products = await res.json();
+    const grid = document.getElementById('grid');
+    grid.innerHTML = '';
 
-    <section class="section alt">
-      <div class="container grid">
+    if (!products.length) {
+      grid.innerHTML = '<p>No products yet.</p>';
+      return;
+    }
 
-        <div class="card">
-          <h3>Organic Fertilizer A <br> (जैविक उर्वरक A)</h3>
-          <p>Boosts soil fertility and improves crop yield naturally.</p>
-          <a href="https://fertilizerlink1.com" target="_blank" class="btn">Buy Now</a>
-        </div>
+    products.forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.innerHTML = `
+        <h3>${p.name}</h3>
+        <p>${p.desc || ''}</p>
+        <p class="price">₹ ${p.price}</p>
+        <p class="muted">Seller: ${p.sellerEmail}</p>
+        <button class="buy-btn" 
+                data-seller="${p.sellerEmail}" 
+                data-name="${p.name}" 
+                data-price="${p.price}">
+          Buy Now
+        </button>
+      `;
+      grid.appendChild(div);
+    });
 
-        <div class="card">
-          <h3>Bio Fertilizer B <br> (बायो उर्वरक B)</h3>
-          <p>Enriches soil with beneficial microbes and enhances growth.</p>
-          <a href="https://fertilizerlink2.com" target="_blank" class="btn">Buy Now</a>
-        </div>
+    // 🛒 Handle Buy button click
+    document.querySelectorAll('button.buy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+        if (!loggedInUser) {
+          alert("⚠️ Please log in first!");
+          return;
+        }
 
-        <div class="card">
-          <h3>Compost C <br> (कंपोस्ट C)</h3>
-          <p>Eco-friendly compost made from natural waste, improves soil health.</p>
-          <a href="https://fertilizerlink3.com" target="_blank" class="btn">Buy Now</a>
-        </div>
+        // Save product info for checkout
+        const product = {
+          name: btn.dataset.name,
+          price: btn.dataset.price,
+          sellerEmail: btn.dataset.seller
+        };
+        localStorage.setItem("selectedProduct", JSON.stringify(product));
 
-        <div class="card">
-          <h3>Vermicompost D <br> (वर्मी कंपोस्ट D)</h3>
-          <p>Nutrient-rich organic compost made with earthworms.</p>
-          <a href="https://fertilizerlink4.com" target="_blank" class="btn">Buy Now</a>
-        </div>
+        // Redirect to checkout page (like Flipkart)
+        window.location.href = "checkout.html";
+      });
+    });
+  }
 
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container" style="text-align:center;">
-        <a href="index.html" class="btn outline">⬅ Back to Home</a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>© 2025 Natural Farming Portal. All rights reserved.</p>
-    </div>
-  </footer>
+  load();
+  </script>
 </body>
-
 </html>

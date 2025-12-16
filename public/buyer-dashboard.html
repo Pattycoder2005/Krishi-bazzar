@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Buyer Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="logo.png" alt="Logo" width="48" height="48"/>
+        <div>
+          <h1>Krishi Bazaar</h1>
+          <p class="tag">किसान बाजार</p>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <button id="logoutBtn" class="btn">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h2>👨‍🌾 Welcome, <span id="buyerName">Buyer</span>!</h2>
+        <p>Here you can browse and purchase organic farming products.</p>
+        <a href="purchase.html" class="btn">Go to Products</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    async function sendBuyRequest(sellerEmail, productName) {
+  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  if (!loggedInUser) return alert("Please log in first!");
+
+  const res = await fetch("/api/send-message", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      buyerEmail: loggedInUser.email,
+      sellerEmail,
+      productName
+    })
+  });
+
+  const data = await res.json();
+  if (data.success) {
+    alert("✅ Request sent to the seller!");
+  } else {
+    alert("❌ Failed to send request");
+  }
+}
+
+  </script>
+</body>
+</html>

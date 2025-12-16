@@ -4,8 +4,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>National Mission on Natural Farming — Demo</title>
+  <title>Krishi Bazaar — Demo</title>
   <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
@@ -13,8 +14,8 @@
     <div class="container header-inner">
       <div class="brand"> <img src="logo.png" alt="Logo" width="56" height="56" />
         <div>
-          <h1>National Mission on Natural Farming</h1>
-          <p class="tag">स्वस्थ माटी — संपन्न किसान</p>
+          <h1>Krishi Bazaar</h1>
+          <p class="tag"> किसान बाज़ार</p>
         </div>
       </div>
       <nav class="main-nav">
@@ -31,7 +32,7 @@
     <section class="hero">
       <section class="container section">
         <p style="text-align:center; margin-bottom:1rem;">
-          <button id="purchaseBtn" class="btn">Purchase Fertilizers</button>
+          <button id="purchaseBtn" class="btn">Purchase Products</button>
         </p>
 
         <!-- Fertilizer cards (hidden by default) -->
@@ -119,7 +120,7 @@
       </section>
 
       <div class="container">
-        <h2>Natural Farming — low-input, ecologically sound agriculture</h2>
+        <h2>Krishi Bazaar — low-input, ecologically sound agriculture</h2>
         <p>Promoting soil health, climate resilience and farmer livelihoods through on-farm inputs, training and model
           farms.</p>
         <p><a class="btn" href="registration.html">Enroll as a Farmer</a></p>
@@ -216,7 +217,7 @@
       <h2>What Farmers Say</h2>
       <div class="reviews">
         <div class="review-card">
-          <p class="review-text">"This portal helped me find the best organic fertilizers easily. Very useful for small
+          <p class="review-text">"This portal helped me find the best organic Products easily. Very useful for small
             farmers like me!"</p>
           <p class="review-author">— Ramesh Kumar (रामेश कुमार), Uttar Pradesh</p>
         </div>
@@ -227,7 +228,8 @@
         </div>
 
         <div class="review-card">
-          <p class="review-text">"Great initiative! The registration and fertilizer purchase option is very smooth."</p>
+          <p class="review-text">"Great initiative! The registration and fertilizer purchase option is very smooth and
+            all the products in it is useful and good for us."</p>
           <p class="review-author">— Ajay Singh (अजय सिंह), Madhya Pradesh</p>
         </div>
       </div>
@@ -340,6 +342,52 @@
 
   // Load reviews on page load
   window.onload = displayReviews;
+  </script>
+  <script>
+      async function loadReviews() {
+    try {
+      const res = await fetch("/api/reviews");
+      const reviews = await res.json();
+      const list = document.getElementById("reviewsList");
+      list.innerHTML = ""; // clear old
+
+      reviews.forEach(r => {
+        const item = document.createElement("div");
+      item.className = "card";
+      item.innerHTML = `
+      <p><strong>${r.name}</strong> <small>(${new Date(r.date).toLocaleString()})</small></p>
+      <p>${r.message}</p>
+        `;
+        list.appendChild(item);
+      });
+    } catch (err) {
+      console.error("Failed to load reviews", err);
+    }
+  }
+
+  // Handle review form submission
+  document.getElementById("reviewForm")?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = e.target.name.value.trim();
+    const message = e.target.message.value.trim();
+    if (!name || !message) return alert("Both fields required");
+
+    const res = await fetch("/api/reviews", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, message })
+    });
+    const data = await res.json();
+    if (data.success) {
+      e.target.reset();
+      loadReviews(); // refresh list
+    } else {
+      alert("Failed to add review");
+    }
+  });
+
+  // Load reviews on page load
+  loadReviews();
   </script>
 
 

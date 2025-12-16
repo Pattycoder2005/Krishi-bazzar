@@ -4,8 +4,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Farmer Dashboard — Natural Farming Mission</title>
+  <title>Farmer Dashboard — Krishi Bazaar</title>
   <link rel="stylesheet" href="style.css">
+  
 </head>
 
 <body>
@@ -13,15 +14,15 @@
     <div class="header-inner container">
       <div class="brand">
         <img src="logo.png" alt="Logo" width="40" height="40">
-        <h1>Natural Farming</h1>
+        <h1>Krishi Bazaar</h1>
       </div>
       <nav class="main-nav">
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <a href="contact.html">Contact</a>
-  <span id="welcomeUser" style="margin-left:15px; font-weight:bold; color:#0b4726;"></span>
-  <a href="login.html" id="loginLink" class="btn outline" style="margin-left:10px;">Login</a>
-</nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <span id="welcomeUser" style="margin-left:15px; font-weight:bold; color:#0b4726;"></span>
+        <a href="login.html" id="loginLink" class="btn outline" style="margin-left:10px;">Login</a>
+      </nav>
 
     </div>
   </header>
@@ -41,14 +42,14 @@
 
           <!-- Purchase button -->
           <p>
-            <button id="purchaseBtn" class="btn">Purchase Fertilizers</button>
+            <button id="purchaseBtn" class="btn">Purchase Products</button>
           </p>
 
           <!-- Fertilizer list (cards) -->
           <div id="fertilizerList" style="display:none; margin-top:1rem;" class="grid">
             <div class="card">
-              <h4>Organic Fertilizer A</h4>
-              <p>Boosts soil fertility naturally.</p>
+              <h4>Organic Products A</h4>
+              <p>Boosts Performance and Growth.</p>
               <a href="https://fertilizerlink1.com" target="_blank" class="btn outline">Buy Now</a>
             </div>
             <div class="card">
@@ -68,6 +69,21 @@
             </div>
           </div>
         </div>
+        <!-- After Fertilizer list, add this block -->
+        <div class="card" style="margin-top:2rem;">
+          <h3>Customer Reviews</h3>
+
+          <!-- Review form -->
+          <form id="reviewForm" style="margin-bottom:1rem;">
+            <label for="reviewMessage">Write your review:</label>
+            <textarea id="reviewMessage" required style="width:100%; padding:0.5rem;"></textarea>
+            <button type="submit" class="btn" style="margin-top:0.5rem;">Submit Review</button>
+          </form>
+
+          <!-- Reviews list -->
+          <div id="reviewsList" style="margin-top:1rem;"></div>
+        </div>
+
 
         <p>
           <a href="index.html" class="btn outline">Back to Home</a>
@@ -79,35 +95,100 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>© 2025 National Mission on Natural Farming. All rights reserved.</p>
+      <p>© 2025 Krishi Bazaar. All rights reserved.</p>
     </div>
   </footer>
 
   <script>
-    // Logout button
-    document.getElementById("logoutBtn")?.addEventListener("click", () => {
-      localStorage.removeItem("loggedInUser");
-      alert("You have been logged out.");
-      window.location.href = "login.html";
-    });
+  // Logout button
+  document.getElementById("logoutBtn")?.addEventListener("click", () => {
+    localStorage.removeItem("loggedInUser");
+    alert("You have been logged out.");
+    window.location.href = "login.html";
+  });
 
-    // Load user details from localStorage
-    const user = JSON.parse(localStorage.getItem("loggedInUser"));
-    if (user) {
-      document.getElementById("userName").textContent = user.name;
-      document.getElementById("userEmail").textContent = user.email;
-      document.getElementById("userPhone").textContent = user.phone;
-      document.getElementById("userState").textContent = user.state;
-      document.getElementById("userFarm").textContent = user.farm;
-      document.getElementById("userMessage").textContent = user.message;
-      document.getElementById("welcomeUser").textContent = `Hi, ${user.name}`;
+  // Load user details from localStorage
+  const user = JSON.parse(localStorage.getItem("loggedInUser"));
+  if (user) {
+    document.getElementById("userName").textContent = user.name;
+    document.getElementById("userEmail").textContent = user.email;
+    document.getElementById("userPhone").textContent = user.phone;
+    document.getElementById("userState").textContent = user.state;
+    document.getElementById("userFarm").textContent = user.farm;
+    document.getElementById("userMessage").textContent = user.message;
+    document.getElementById("welcomeUser").textContent = `Hi, ${user.name}`;
+  }
+
+  // Toggle fertilizer list
+  document.getElementById("purchaseBtn")?.addEventListener("click", () => {
+    const list = document.getElementById("fertilizerList");
+    list.style.display = list.style.display === "none" ? "grid" : "none";
+  });
+
+  // =========================
+  // REVIEWS
+  // =========================
+  const reviewForm = document.getElementById("reviewForm");
+  const reviewsList = document.getElementById("reviewsList");
+
+  // Fetch and display reviews
+  async function loadReviews() {
+    try {
+      const res = await fetch("/api/reviews");
+      const data = await res.json();
+
+      reviewsList.innerHTML = "";
+      if (data.length === 0) {
+        reviewsList.innerHTML = "<p>No reviews yet. Be the first!</p>";
+        return;
+      }
+
+      data.forEach(r => {
+        const div = document.createElement("div");
+        div.className = "card";
+        div.style.marginBottom = "0.5rem";
+        div.innerHTML = `
+          <p><strong>${r.name}</strong> (${new Date(r.date).toLocaleString()})</p>
+          <p>${r.message}</p>
+        `;
+        reviewsList.appendChild(div);
+      });
+    } catch (err) {
+      console.error("Error loading reviews:", err);
     }
+  }
 
-    // Toggle fertilizer list
-    document.getElementById("purchaseBtn")?.addEventListener("click", () => {
-      const list = document.getElementById("fertilizerList");
-      list.style.display = list.style.display === "none" ? "grid" : "none";
-    });
-  </script>
+  // Handle new review submission
+  reviewForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const message = document.getElementById("reviewMessage").value.trim();
+    if (!message) return;
+
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    const name = user?.name || "Anonymous";
+
+    try {
+      const res = await fetch("/api/reviews", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, message })
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        document.getElementById("reviewMessage").value = "";
+        loadReviews(); // refresh reviews
+      }
+    } catch (err) {
+      console.error("Error submitting review:", err);
+    }
+  });
+
+  // Load reviews on page load
+  loadReviews();
+</script>
+
 </body>
+
 </html>

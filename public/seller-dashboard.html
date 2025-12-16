@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Seller Dashboard</title>
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f6f7;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #0b7b3b;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #0b7b3b;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      margin: 10px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #095c2e;
+    }
+    #requests {
+      margin-top: 20px;
+      text-align: left;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .msg-card {
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+    .msg-card.read {
+      background: #d8f3dc;
+      opacity: 0.9;
+    }
+    .mark-btn {
+      background: #0b7b3b;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 12px;
+      margin-top: 8px;
+      cursor: pointer;
+    }
+    .mark-btn:hover {
+      background: #095c2e;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧑‍💼 Seller Dashboard</h1>
+  <p>View and manage buyer requests for your listed products.</p>
+
+  <a href="manage-products.html" class="btn">🛠 Manage Products</a>
+  <button class="btn" onclick="loadBuyerRequests()">📩 Refresh Requests</button>
+
+  <section style="margin-top: 2rem;">
+    <h2>📩 Buyer Requests</h2>
+    <div id="requests">Loading...</div>
+  </section>
+
+  <script>
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (!loggedInUser) {
+      alert("Access denied. Please log in.");
+      window.location.href = "login.html";
+    }
+
+    async function loadBuyerRequests() {
+      try {
+        const res = await fetch(`/api/messages/${loggedInUser.email}`);
+        const messages = await res.json();
+        const container = document.getElementById("requests");
+
+        if (!messages.length) {
+          container.innerHTML = "<p>No buyer requests yet.</p>";
+          return;
+        }
+
+        container.innerHTML = messages.map(msg => `
+          <div class="msg-card ${msg.read ? 'read' : ''}">
+            <strong>🛍 Product:</strong> ${msg.productName}<br>
+            <strong>📧 Buyer:</strong> ${msg.buyerEmail}<br>
+            <small>🕒 ${new Date(msg.date).toLocaleString()}</small><br>
+            ${!msg.read ? 
+              `<button class="mark-btn" onclick="markAsRead('${msg.buyerEmail}','${msg.productName}')">Mark as Read</button>` 
+              : "<em>✔ Marked as Read</em>"
+            }
+          </div>
+        `).join("");
+      } catch (err) {
+        document.getElementById("requests").innerHTML = `<p>⚠️ Error loading requests: ${err.message}</p>`;
+      }
+    }
+
+    async function markAsRead(buyerEmail, productName) {
+      try {
+        const res = await fetch('/api/messages/mark-read', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ buyerEmail, productName })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert("✅ Request approved & added to buyer orders!");
+          loadBuyerRequests();
+        } else {
+          alert("⚠️ " + data.message);
+        }
+      } catch (err) {
+        alert("❌ Failed: " + err.message);
+      }
+    }
+
+    loadBuyerRequests();
+  </script>
+</body>
+</html>

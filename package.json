@@ -12,12 +12,19 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "body-parser": "^2.2.0",
+    "body-parser": "^2.2.1",
     "cors": "^2.8.5",
-    "express": "^5.1.0",
+    "express": "^5.2.1",
     "express-session": "^1.18.2",
     "sqlite3": "^5.1.7",
     "twilio": "^5.10.0"
   },
-  "devDependencies": {}
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pattycoder2005/myapp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Pattycoder2005/myapp/issues"
+  },
+  "homepage": "https://github.com/Pattycoder2005/myapp#readme"
 }

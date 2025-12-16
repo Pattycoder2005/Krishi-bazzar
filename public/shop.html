@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Shop — Krishi Bazaar (किसान बाजार)</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    main {
+      padding: 2rem 1rem;
+    }
+    .shop-container {
+      max-width: 1000px;
+      margin: auto;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .product {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 1.5rem;
+      transition: transform 0.2s;
+    }
+    .product:hover {
+      transform: translateY(-5px);
+    }
+    .product img {
+      width: 100%;
+      max-height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .product h3 {
+      margin: 0.8rem 0 0.4rem;
+      color: #0b7b3b;
+    }
+    .product p {
+      font-size: 0.9rem;
+      color: #444;
+    }
+    .price {
+      font-weight: bold;
+      color: #0b7b3b;
+      margin: 0.5rem 0;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      background: #0b7b3b;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      margin-top: 0.5rem;
+    }
+    .btn:hover {
+      background: #095c2e;
+    }
+    .logout {
+      background: #d32f2f;
+      margin-left: 1rem;
+    }
+    .logout:hover {
+      background: #9a0007;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="logo.png" alt="Logo" width="48" height="48">
+        <div>
+          <h1>Natural Farming Mission</h1>
+          <p class="tag">किसान बाजार</p>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <a href="buyer-dashboard.html">Dashboard</a>
+        <a href="shop.html" class="cta">Shop</a>
+        <a href="seller-dashboard.html">Seller</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <div class="shop-container">
+      <h2>🛍️ Available Products</h2>
+      <p>Browse fresh, organic, and natural products directly from farmers.</p>
+
+      <div id="productList" class="products">
+        <!-- Example product cards (can be replaced with DB data later) -->
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:2rem;">
+      <a href="#" id="logoutBtn" class="btn logout">Logout</a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2025 Krishi Bazaar. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (!user || user.role !== "Buyer") {
+      alert("Access denied! Please login as Buyer.");
+      window.location.href = "login.html";
+    }
+
+    const productList = document.getElementById("productList");
+
+    // 🧺 Demo Product Data (you’ll replace this with backend fetch later)
+    const products = [
+      { name: "Organic Wheat", price: "₹60/kg", image: "https://via.placeholder.com/220x150?text=Wheat", desc: "Pure organic wheat from natural farms." },
+      { name: "Fresh Tomatoes", price: "₹40/kg", image: "https://via.placeholder.com/220x150?text=Tomatoes", desc: "Locally grown fresh tomatoes." },
+      { name: "Natural Honey", price: "₹350/litre", image: "https://via.placeholder.com/220x150?text=Honey", desc: "Raw honey directly from hives." },
+      { name: "Desi Ghee", price: "₹750/kg", image: "https://via.placeholder.com/220x150?text=Desi+Ghee", desc: "Traditional ghee from organic milk." }
+    ];
+
+    // Render demo products
+    products.forEach(p => {
+      const card = document.createElement("div");
+      card.className = "product";
+      card.innerHTML = `
+        <img src="${p.image}" alt="${p.name}">
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <div class="price">${p.price}</div>
+        <a href="#" class="btn">Buy Now</a>
+      `;
+      productList.appendChild(card);
+    });
+
+    // Logout
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Orders</title>
+  
+</head>
+<body>
+  <h1>📦 My Orders</h1>
+  <div id="orders">Loading...</div>
+
+  <script>
+    async function loadOrders() {
+      const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+      if (!loggedInUser) {
+        document.getElementById("orders").innerHTML = "Please log in.";
+        return;
+      }
+
+      const res = await fetch("/api/messages/" + loggedInUser.email);
+      const messages = await res.json();
+      const approved = messages.filter(m => m.status === "approved");
+
+      if (!approved.length) {
+        document.getElementById("orders").innerHTML = "<p>No approved orders yet.</p>";
+        return;
+      }
+
+      document.getElementById("orders").innerHTML = `
+        <ul>
+          ${approved.map(o => `<li>${o.productName} - Approved ✅</li>`).join("")}
+        </ul>
+      `;
+    }
+
+    loadOrders();
+  </script>
+</body>
+</html>
